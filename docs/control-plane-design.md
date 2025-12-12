@@ -205,7 +205,7 @@ CREATE TABLE audit_logs (
 INSERT INTO plans (name, description, max_concurrent_streams, max_rps, max_symbols, monthly_price) VALUES
 ('free', '免費方案，適合開發測試', 5, 10, 10, 0.00),
 ('pro', '專業方案，適合小型團隊', 50, 100, 50, 99.00),
-('enterprise', '企業方案，無限制使用', 500, 1000, 200, 499.00);
+('enterprise', '企業方案，高配額限制', 500, 1000, 200, 499.00);
 ```
 
 ---

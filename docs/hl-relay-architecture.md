@@ -507,7 +507,7 @@ Service 名稱（例）：`MarketDataService`
 | 資料庫 | MySQL | 租戶、API Key、計費資料 |
 | 快取 | In-memory (Go map + sync.RWMutex) | 低延遲 snapshot |
 | gRPC | grpc-go | 主要對外 API |
-| WebSocket | gorilla/websocket | 可選 WS 支援 |
+| WebSocket | gorilla/websocket 或 nhooyr.io/websocket | 可選 WS 支援（推薦 nhooyr.io/websocket 作為現代替代方案） |
 | Metrics | Prometheus + Grafana | 可觀測性 |
 | 部署 | Docker + Kubernetes | 容器化部署 |
 

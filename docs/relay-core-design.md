@@ -176,7 +176,7 @@ default:
 
 * 儲存每個 symbol 的最新 snapshot
 * 支援快速查詢（新訂閱者初始化用）
-* 可選：儲存最近 N 筆 trades 供 gap 補齊
+* 可選：儲存最近 N 筆 trades 供間隙補齊（gap filling）
 
 ### 5.2 資料結構（概念）
 
@@ -241,7 +241,7 @@ TradeRingBuffer {
 採用 **Token Bucket** 演算法：
 
 * 優點：允許短暫 burst，同時控制長期平均
-* 實現：使用 Go 的 `golang.org/x/time/rate` 套件
+* 實現：使用 Go 官方擴展套件 `golang.org/x/time/rate`（Go 1.16+）
 
 ```
 TokenBucket（概念）：
