@@ -9,6 +9,7 @@
 | [hl-relay-architecture.md](./hl-relay-architecture.md) | 主架構設計文件 v0.1 | ✅ 完成 |
 | [relay-core-design.md](./relay-core-design.md) | Relay Core (Data Plane) 詳細設計 | ✅ 完成 |
 | [control-plane-design.md](./control-plane-design.md) | Control Plane 詳細設計 | ✅ 完成 |
+| [tech-stack-and-packages.md](./tech-stack-and-packages.md) | 技術選型與套件規範 | ✅ 完成 |
 
 ## 系統概述
 
