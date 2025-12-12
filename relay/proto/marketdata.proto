@@ -1,0 +1,95 @@
+syntax = "proto3";
+
+package hlrelay.v1;
+
+option go_package = "go_hyperliquid/relay/proto/hlrelay/v1";
+
+// MarketDataService provides market data streaming.
+service MarketDataService {
+  // StreamOrderBook streams orderbook updates for a symbol.
+  rpc StreamOrderBook(StreamOrderBookRequest) returns (stream OrderBookUpdate);
+  
+  // StreamTrades streams trade updates for a symbol.
+  rpc StreamTrades(StreamTradesRequest) returns (stream Trade);
+  
+  // GetOrderBookSnapshot returns the current orderbook snapshot.
+  rpc GetOrderBookSnapshot(GetOrderBookSnapshotRequest) returns (OrderBookSnapshot);
+  
+  // GetRecentTrades returns recent trades for a symbol.
+  rpc GetRecentTrades(GetRecentTradesRequest) returns (RecentTradesResponse);
+  
+  // GetSymbols returns available symbols.
+  rpc GetSymbols(GetSymbolsRequest) returns (GetSymbolsResponse);
+}
+
+// StreamOrderBookRequest is the request for StreamOrderBook.
+message StreamOrderBookRequest {
+  string symbol = 1;
+  int32 depth = 2;  // Optional max depth
+}
+
+// StreamTradesRequest is the request for StreamTrades.
+message StreamTradesRequest {
+  string symbol = 1;
+}
+
+// GetOrderBookSnapshotRequest is the request for GetOrderBookSnapshot.
+message GetOrderBookSnapshotRequest {
+  string symbol = 1;
+  int32 depth = 2;  // Optional max depth
+}
+
+// GetRecentTradesRequest is the request for GetRecentTrades.
+message GetRecentTradesRequest {
+  string symbol = 1;
+  int32 count = 2;  // Max number of trades to return
+}
+
+// GetSymbolsRequest is the request for GetSymbols.
+message GetSymbolsRequest {}
+
+// GetSymbolsResponse is the response for GetSymbols.
+message GetSymbolsResponse {
+  repeated string symbols = 1;
+}
+
+// OrderBookUpdate represents an orderbook update.
+message OrderBookUpdate {
+  string symbol = 1;
+  int64 timestamp = 2;  // Unix milliseconds
+  int64 sequence = 3;
+  bool is_snapshot = 4;
+  repeated PriceLevel asks = 5;
+  repeated PriceLevel bids = 6;
+}
+
+// OrderBookSnapshot represents a full orderbook snapshot.
+message OrderBookSnapshot {
+  string symbol = 1;
+  int64 timestamp = 2;  // Unix milliseconds
+  int64 sequence = 3;
+  repeated PriceLevel asks = 4;
+  repeated PriceLevel bids = 5;
+}
+
+// PriceLevel represents a single price level.
+message PriceLevel {
+  double price = 1;
+  double size = 2;
+}
+
+// Trade represents a single trade.
+message Trade {
+  string symbol = 1;
+  string trade_id = 2;
+  double price = 3;
+  double size = 4;
+  string side = 5;  // "buy" or "sell"
+  int64 timestamp = 6;  // Unix milliseconds
+}
+
+// RecentTradesResponse is the response for GetRecentTrades.
+message RecentTradesResponse {
+  string symbol = 1;
+  repeated Trade trades = 2;
+}
