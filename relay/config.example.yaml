@@ -1,0 +1,58 @@
+# HL Relay Service Configuration
+
+server:
+  http_port: 8080
+  grpc_port: 50051
+  host: "0.0.0.0"
+
+upstream:
+  gateways:
+    - endpoint: "gateway1.internal:50051"
+      priority: 1
+      region: "tokyo"
+    - endpoint: "gateway2.internal:50051"
+      priority: 2
+      region: "tokyo"
+  health_check_interval: 5s
+  reconnect_max_delay: 30s
+  reconnect_base_delay: 100ms
+
+fanout:
+  subscriber_buffer_size: 500
+  slow_consumer_threshold: 1000
+  zombie_timeout: 60s
+
+cache:
+  max_orderbook_depth: 100
+  trade_history_size: 1000
+  cleanup_interval: 5m
+
+rate:
+  default_rps: 100
+  default_max_streams: 10
+  burst_multiplier: 2.0
+
+database:
+  host: localhost
+  port: 3306
+  user: hl_relay
+  password: ${DB_PASSWORD}
+  database: hl_relay
+  max_open_conns: 100
+  max_idle_conns: 10
+  conn_max_lifetime: 1h
+
+redis:
+  addr: localhost:6379
+  password: ${REDIS_PASSWORD}
+  db: 0
+  pool_size: 100
+  min_idle_conns: 10
+  dial_timeout: 5s
+  read_timeout: 3s
+  write_timeout: 3s
+
+logger:
+  level: info
+  development: false
+  encoding: json
